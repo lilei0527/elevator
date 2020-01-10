@@ -5,22 +5,19 @@ import java.util.List;
  * @author lilei
  **/
 public class Context {
-    List<Elevator> elevators = new ArrayList<>();
+    private List<Elevator> elevators = new ArrayList<>();
+
     private Analyzer analyzer;
 
-    private List<Selector> selectors;
+    private List<Selector> selectors = new ArrayList<>();
 
-    private Selector selector;
 
-    public void setAnalyzer(Analyzer analyzer) {
+    void setAnalyzer(Analyzer analyzer) {
         this.analyzer = analyzer;
     }
 
-    public void setSelector(Selector selector) {
-        this.selector = selector;
-    }
 
-    void addElevator(Elevator elevator) {
+    private void addElevator(Elevator elevator) {
         elevators.add(elevator);
     }
 
@@ -28,31 +25,10 @@ public class Context {
         selectors.add(selector);
     }
 
-    void removeElevator(Elevator elevator) {
-        elevators.remove(elevator);
-    }
-
-    //获取所有直达电梯
-//    List<ThroughElevator> getThroughElevators() {
-//        List<ThroughElevator> elevators = new ArrayList<>();
-//        for (Elevator elevator : this.elevators) {
-//            if (elevator instanceof ThroughElevator) {
-//                elevators.add((ThroughElevator) elevator);
-//            }
-//        }
-//        return elevators;
+//    void removeElevator(Elevator elevator) {
+//        elevators.remove(elevator);
 //    }
 
-    //获取所有常用电梯
-//    List<OrdinaryElevator> getOrdinaryElevators() {
-//        List<OrdinaryElevator> elevators = new ArrayList<>();
-//        for (Elevator elevator : this.elevators) {
-//            if (elevator instanceof ThroughElevator) {
-//                elevators.add((ThroughElevator) elevator);
-//            }
-//        }
-//        return elevators;
-//    }
 
     <T extends Elevator> List<T> getElevators(Class<T> c) {
         List<T> elevators = new ArrayList<>();
@@ -74,7 +50,7 @@ public class Context {
     }
 
 
-    void start() {
+    private void start() {
         System.out.println("电梯初始化完毕:");
         detail();
         for (Elevator elevator : elevators) {
@@ -83,23 +59,23 @@ public class Context {
         }
     }
 
-    void detail() {
+    private void detail() {
 
         for (Elevator elevator : elevators) {
             System.out.println(elevator.toString());
         }
     }
 
-    void press(int floor, String direction, String number, int destination) {
+    private void press(int floor, String direction, String number, int destination) {
         Event event = new Event(floor, direction, number, destination);
         analyzer.analyzer(event);
     }
 
     public static void main(String[] args) {
         Context context = new Context();
-        Elevator elevator = new ThroughElevator("A1", StateEnum.FREE.getType(), 0, 999, 0);
-        Elevator elevator1 = new ThroughElevator("A2", StateEnum.FREE.getType(), 0, 999, 0);
-        Elevator elevator2 = new ThroughElevator("A3", StateEnum.FREE.getType(), 0, 999, 0);
+        ThroughElevator elevator = new ThroughElevator("A1", StateEnum.FREE.getType(), 0, 999, 0);
+        ThroughElevator elevator1 = new ThroughElevator("A2", StateEnum.FREE.getType(), 0, 999, 0);
+        ThroughElevator elevator2 = new ThroughElevator("A3", StateEnum.FREE.getType(), 0, 999, 0);
         context.addElevator(elevator);
         context.addElevator(elevator1);
         context.addElevator(elevator2);
@@ -110,6 +86,7 @@ public class Context {
 
         new Analyzer(context);
         new ThroughElevatorSelector(context);
+        new OrdinaryElevatorSelector(context);
 
         context.start();
 

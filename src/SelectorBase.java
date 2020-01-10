@@ -3,11 +3,11 @@ import java.util.List;
 /**
  * @author lilei
  **/
-public abstract class SelectorBase<T extends Elevator> implements Selector {
+abstract class SelectorBase<T extends Elevator> implements Selector {
     List<T> elevators;
 
     //最近的空闲电梯
-    public T choiceClose(Event event) {
+    T choiceClose(Event event) {
         int close = 0;
         for (T elevator : elevators) {
             if (elevator.getState().equals(StateEnum.FREE.getType())) {

@@ -6,9 +6,9 @@
 public class ThroughElevatorSelector extends SelectorBase<ThroughElevator> {
 
 
-    public ThroughElevatorSelector(Context context) {
+    ThroughElevatorSelector(Context context) {
         elevators = context.getElevators(ThroughElevator.class);
-        context.setSelector(this);
+        context.addSelector(this);
     }
 
     @Override

@@ -1,4 +1,3 @@
-import java.util.List;
 
 /**
  * @author lilei
@@ -8,7 +7,7 @@ public class ThroughElevator extends Elevator {
     //接收到的事件
     private volatile Event event;
 
-    public ThroughElevator(String number, String state, int floor, float nuclearLoading, float weight) {
+     ThroughElevator(String number, String state, int floor, float nuclearLoading, float weight) {
         super(number, state, floor, nuclearLoading, weight);
     }
 
@@ -35,17 +34,11 @@ public class ThroughElevator extends Elevator {
         return event;
     }
 
-    @Override
-    public void addEvent(Event event) {
 
-    }
 
     public void setEvent(Event event) {
         this.event = event;
     }
 
-    @Override
-    public void setEvents(List<Event> events) {
 
-    }
 }

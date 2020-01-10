@@ -4,9 +4,9 @@
  **/
 public class OrdinaryElevatorSelector extends SelectorBase<OrdinaryElevator> {
 
-    public OrdinaryElevatorSelector(Context context) {
+    OrdinaryElevatorSelector(Context context) {
         elevators = context.getElevators(OrdinaryElevator.class);
-        context.setSelector(this);
+        context.addSelector(this);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class OrdinaryElevatorSelector extends SelectorBase<OrdinaryElevator> {
     }
 
     //最近的可以一同上升或下降的电梯
-    OrdinaryElevator choiceMerge(Event event){
+    private OrdinaryElevator choiceMerge(Event event){
         int close = 0;
         for (OrdinaryElevator elevator : elevators) {
             if (elevator.canMerge(event)) {

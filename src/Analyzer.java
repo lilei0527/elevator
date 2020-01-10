@@ -5,17 +5,17 @@ import java.util.List;
  * @author lilei
  * 分析使用哪一个选择器
  **/
-public class Analyzer {
-    Context context;
+class Analyzer {
+    private Context context;
 
-    public Analyzer(Context context) {
+    Analyzer(Context context) {
         this.context = context;
         context.setAnalyzer(this);
     }
 
 
     //是否是直达电梯
-    boolean isThroughElevator(String number) {
+    private boolean isThroughElevator(String number) {
         List<ThroughElevator> throughElevators = context.getElevators(ThroughElevator.class);
         for (ThroughElevator throughElevator : throughElevators) {
             if (throughElevator.getNumber().equals(number)) {
@@ -26,7 +26,7 @@ public class Analyzer {
     }
 
     //是否是常用电梯
-    boolean isOrdinaryElevator(String number) {
+    private boolean isOrdinaryElevator(String number) {
         List<OrdinaryElevator> ordinaryElevators = context.getElevators(OrdinaryElevator.class);
         for (OrdinaryElevator ordinaryElevator : ordinaryElevators) {
             if (ordinaryElevator.getNumber().equals(number)) {
@@ -46,7 +46,7 @@ public class Analyzer {
         }
     }
 
-    <T extends Selector> void doSelect(Class<T> clazz, Event event) {
+    private <T extends Selector> void doSelect(Class<T> clazz, Event event) {
         Elevator selectedElevator = null;
         while (selectedElevator == null) {
             Selector selector = context.getSelector(clazz);

@@ -17,25 +17,20 @@ public class OrdinaryElevator extends Elevator {
         super(number, state, floor, nuclearLoading,weight);
     }
 
-    @Override
-    public void setEvent(Event event) {
-    }
 
-    @Override
-    public Event getEvent() {
-        return null;
-    }
 
-    @Override
-    public void addEvent(Event event) {
+
+     void addEvent(Event event) {
         events.add(event);
     }
 
-    public List<Event> getEvents() {
+     List<Event> getEvents() {
         return events;
     }
 
-    public void setEvents(List<Event> events) {
+
+
+    void setEvents(List<Event> events) {
         this.events = events;
     }
 }

@@ -2,7 +2,7 @@
  * @author lilei
  **/
 public class ThroughElevatorExecutor extends ExecutorBase<ThroughElevator> {
-    public ThroughElevatorExecutor(ThroughElevator elevator) {
+     ThroughElevatorExecutor(ThroughElevator elevator) {
         super(elevator);
     }
 
@@ -22,7 +22,7 @@ public class ThroughElevatorExecutor extends ExecutorBase<ThroughElevator> {
 
 
     //电梯开始载客
-    public  void carry(float weight) {
+    private void carry(float weight) {
         System.out.println("电梯开始载客");
         elevator.addWeight(weight);
         if (elevator.isOverWeight()) {
@@ -39,7 +39,7 @@ public class ThroughElevatorExecutor extends ExecutorBase<ThroughElevator> {
     }
 
     //模拟直达电梯准备到达目的地
-    public void moveToPoint() throws InterruptedException {
+    private void moveToPoint() throws InterruptedException {
         System.out.println(elevator.getNumber() + "电梯前往目的地楼层:" + elevator.getEvent().getDestination() + "楼");
         move(elevator.getEvent().getDestination(), null);
         System.out.println(elevator.getNumber() + "电梯到达目的地");
@@ -47,7 +47,7 @@ public class ThroughElevatorExecutor extends ExecutorBase<ThroughElevator> {
 
 
     //模拟直达电梯准备到达按电梯楼层
-    public void moveToEvent() throws InterruptedException {
+    private void moveToEvent() throws InterruptedException {
         System.out.println(elevator.getNumber() + "电梯前往按电梯楼层:" + elevator.getEvent().getFloor() + "楼");
         move(elevator.getEvent().getFloor(), StateEnum.PAUSE.getType());
         System.out.println(elevator.getNumber() + "电梯到达按电梯楼层");

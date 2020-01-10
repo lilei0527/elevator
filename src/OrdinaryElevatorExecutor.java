@@ -12,9 +12,7 @@ public class OrdinaryElevatorExecutor extends ExecutorBase<OrdinaryElevator> {
 
     @Override
     public void execute() throws InterruptedException {
-        beforeCarry(elevator.getEvent().getFloor());
-
-
+        beforeCarry(elevator.getEvents().get(0).getFloor());
 
     }
 

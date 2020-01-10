@@ -1,4 +1,3 @@
-import java.util.List;
 
 /**
  * @author lilei
@@ -16,9 +15,9 @@ public abstract class Elevator implements Runnable {
     private volatile float weight;
 
 
-    public Executor executor;
+    Executor executor;
 
-    public void setExecutor(Executor executor) {
+     void setExecutor(Executor executor) {
         this.executor = executor;
     }
 
@@ -27,15 +26,15 @@ public abstract class Elevator implements Runnable {
     public abstract void run();
 
 
-    public synchronized void addWeight(float weight) {
+     synchronized void addWeight(float weight) {
         this.weight += weight;
     }
 
-    public boolean isOverWeight() {
+     boolean isOverWeight() {
         return weight > nuclearLoading;
     }
 
-    public Elevator(String number, String state, int floor, float nuclearLoading, float weight) {
+     Elevator(String number, String state, int floor, float nuclearLoading, float weight) {
         this.number = number;
         this.state = state;
         this.floor = floor;
@@ -43,37 +42,31 @@ public abstract class Elevator implements Runnable {
         this.weight = weight;
     }
 
-    public String getNumber() {
+     String getNumber() {
         return number;
     }
 
 
-    public String getState() {
+     String getState() {
         return state;
     }
 
-    public void setState(String state) {
+     void setState(String state) {
         this.state = state;
     }
 
-    public int getFloor() {
+     int getFloor() {
         return floor;
     }
 
-    public void setFloor(int floor) {
+     void setFloor(int floor) {
         this.floor = floor;
     }
 
-    public float getNuclearLoading() {
-        return nuclearLoading;
-    }
 
 
-    public float getWeight() {
-        return weight;
-    }
 
-    public void setWeight(float weight) {
+     void setWeight(float weight) {
         this.weight = weight;
     }
 
@@ -90,10 +83,10 @@ public abstract class Elevator implements Runnable {
                 '}';
     }
 
-    boolean isSameDirection(Event event) {
-        return (getState().equals(StateEnum.RISE.getType()) && event.getDirection().equals("up")) ||
-                (getState().equals(StateEnum.DROP.getType()) && event.getDirection().equals("down"));
-    }
+//    boolean isSameDirection(Event event) {
+//        return (getState().equals(StateEnum.RISE.getType()) && event.getDirection().equals("up")) ||
+//                (getState().equals(StateEnum.DROP.getType()) && event.getDirection().equals("down"));
+//    }
 
     //可以一同上升或下降的电梯
     boolean canMerge(Event event) {

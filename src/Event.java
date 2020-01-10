@@ -17,37 +17,25 @@ public class Event {
         this.destination = destination;
     }
 
-    public int getFloor() {
+    int getFloor() {
         return floor;
     }
 
-    public void setFloor(int floor) {
-        this.floor = floor;
-    }
 
-    public String getDirection() {
+    String getDirection() {
         return direction;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
 
-    public String getNumber() {
+    String getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
 
-    public int getDestination() {
+    int getDestination() {
         return destination;
     }
 
-    public void setDestination(int destination) {
-        this.destination = destination;
-    }
 
     @Override
     public String toString() {

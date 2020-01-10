@@ -5,13 +5,13 @@
 public abstract class ExecutorBase<T extends Elevator> implements Executor {
     T elevator;
 
-    public ExecutorBase(T elevator) {
+    ExecutorBase(T elevator) {
         this.elevator = elevator;
         elevator.setExecutor(this);
     }
 
     //电梯开始载客之前
-    public  void beforeCarry(int eventFloor) {
+    void beforeCarry(int eventFloor) {
         if (elevator.getFloor() < eventFloor) {
             elevator.setState(StateEnum.RISE.getType());
         } else if (elevator.getFloor() > eventFloor) {
@@ -23,7 +23,7 @@ public abstract class ExecutorBase<T extends Elevator> implements Executor {
 
 
 
-    public  void beforeMoveToPoint(int destinationFloor){
+    void beforeMoveToPoint(int destinationFloor){
         if(!elevator.getState().equals(StateEnum.OVERWEIGHT.getType())){
             if(elevator.getFloor()<destinationFloor){
                 elevator.setState(StateEnum.RISE.getType());
