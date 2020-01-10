@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -13,10 +14,28 @@ class Analyzer {
         context.setAnalyzer(this);
     }
 
+    private <T extends Elevator> List<T> getElevators(Class<T> c) {
+        List<T> elevators = new ArrayList<>();
+        for (Elevator elevator : context.getElevators()) {
+            if (elevator.getClass().equals(c)) {
+                elevators.add((T) elevator);
+            }
+        }
+        return elevators;
+    }
+
+    private <T extends Selector> T getSelector(Class<T> c) {
+        for (Selector selector : context.getSelectors()) {
+            if (selector.getClass().equals(c)) {
+                return (T) selector;
+            }
+        }
+        return null;
+    }
 
     //是否是直达电梯
     private boolean isThroughElevator(String number) {
-        List<ThroughElevator> throughElevators = context.getElevators(ThroughElevator.class);
+        List<ThroughElevator> throughElevators = getElevators(ThroughElevator.class);
         for (ThroughElevator throughElevator : throughElevators) {
             if (throughElevator.getNumber().equals(number)) {
                 return true;
@@ -27,7 +46,7 @@ class Analyzer {
 
     //是否是常用电梯
     private boolean isOrdinaryElevator(String number) {
-        List<OrdinaryElevator> ordinaryElevators = context.getElevators(OrdinaryElevator.class);
+        List<OrdinaryElevator> ordinaryElevators = getElevators(OrdinaryElevator.class);
         for (OrdinaryElevator ordinaryElevator : ordinaryElevators) {
             if (ordinaryElevator.getNumber().equals(number)) {
                 return true;
@@ -49,8 +68,10 @@ class Analyzer {
     private <T extends Selector> void doSelect(Class<T> clazz, Event event) {
         Elevator selectedElevator = null;
         while (selectedElevator == null) {
-            Selector selector = context.getSelector(clazz);
-            selectedElevator = selector.choice(event);
+            Selector selector = getSelector(clazz);
+            if (selector != null) {
+                selectedElevator = selector.choice(event);
+            }
         }
         System.out.println(event.toString() + "选择的电梯:" + selectedElevator.toString());
     }

@@ -7,9 +7,17 @@ import java.util.List;
 public class Context {
     private List<Elevator> elevators = new ArrayList<>();
 
+    private List<Selector> selectors = new ArrayList<>();
+
     private Analyzer analyzer;
 
-    private List<Selector> selectors = new ArrayList<>();
+    List<Elevator> getElevators() {
+        return elevators;
+    }
+
+    private void addElevator(Elevator elevator) {
+        elevators.add(elevator);
+    }
 
 
     void setAnalyzer(Analyzer analyzer) {
@@ -17,8 +25,10 @@ public class Context {
     }
 
 
-    private void addElevator(Elevator elevator) {
-        elevators.add(elevator);
+
+
+    List<Selector> getSelectors() {
+        return selectors;
     }
 
     void addSelector(Selector selector) {
@@ -28,26 +38,6 @@ public class Context {
 //    void removeElevator(Elevator elevator) {
 //        elevators.remove(elevator);
 //    }
-
-
-    <T extends Elevator> List<T> getElevators(Class<T> c) {
-        List<T> elevators = new ArrayList<>();
-        for (Elevator elevator : this.elevators) {
-            if (elevator.getClass().equals(c)) {
-                elevators.add((T) elevator);
-            }
-        }
-        return elevators;
-    }
-
-    <T extends Selector> T getSelector(Class<T> c) {
-        for (Selector selector : this.selectors) {
-            if (selector.getClass().equals(c)) {
-                return (T) selector;
-            }
-        }
-        return null;
-    }
 
 
     private void start() {
@@ -60,7 +50,6 @@ public class Context {
     }
 
     private void detail() {
-
         for (Elevator elevator : elevators) {
             System.out.println(elevator.toString());
         }
