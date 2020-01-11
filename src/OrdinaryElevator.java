@@ -30,7 +30,7 @@ public class OrdinaryElevator extends Elevator {
 
 
 
-    void setEvents(List<Event> events) {
+    void setEvents(@SuppressWarnings("SameParameterValue") List<Event> events) {
         this.events = events;
     }
 }

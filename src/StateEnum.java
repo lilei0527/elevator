@@ -28,7 +28,7 @@ public enum StateEnum {
     }
 
 
-
+    @SuppressWarnings("unused")
     public String getDescription() {
         return description;
     }

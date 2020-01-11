@@ -14,7 +14,9 @@ class Analyzer {
         context.setAnalyzer(this);
     }
 
-    private <T extends Elevator> List<T> getElevators(Class<T> c) {
+
+    @SuppressWarnings("unchecked")
+    <T extends Elevator> List<T> getElevators(Class<T> c) {
         List<T> elevators = new ArrayList<>();
         for (Elevator elevator : context.getElevators()) {
             if (elevator.getClass().equals(c)) {
@@ -24,6 +26,7 @@ class Analyzer {
         return elevators;
     }
 
+    @SuppressWarnings("unchecked")
     private <T extends Selector> T getSelector(Class<T> c) {
         for (Selector selector : context.getSelectors()) {
             if (selector.getClass().equals(c)) {

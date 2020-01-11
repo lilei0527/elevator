@@ -22,7 +22,7 @@ public class ThroughElevatorExecutor extends ExecutorBase<ThroughElevator> {
 
 
     //电梯开始载客
-    private void carry(float weight) {
+    private void carry(@SuppressWarnings("SameParameterValue") float weight) {
         System.out.println("电梯开始载客");
         elevator.addWeight(weight);
         if (elevator.isOverWeight()) {

@@ -5,7 +5,7 @@
 public class OrdinaryElevatorSelector extends SelectorBase<OrdinaryElevator> {
 
     OrdinaryElevatorSelector(Context context) {
-        elevators = context.getElevators(OrdinaryElevator.class);
+        elevators = context.getAnalyzer().getElevators(OrdinaryElevator.class);
         context.addSelector(this);
     }
 

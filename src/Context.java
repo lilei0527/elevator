@@ -11,6 +11,10 @@ public class Context {
 
     private Analyzer analyzer;
 
+    Analyzer getAnalyzer() {
+        return analyzer;
+    }
+
     List<Elevator> getElevators() {
         return elevators;
     }

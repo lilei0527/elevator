@@ -17,7 +17,7 @@ public abstract class Elevator implements Runnable {
 
     Executor executor;
 
-     void setExecutor(Executor executor) {
+    void setExecutor(Executor executor) {
         this.executor = executor;
     }
 
@@ -26,15 +26,15 @@ public abstract class Elevator implements Runnable {
     public abstract void run();
 
 
-     synchronized void addWeight(float weight) {
+    synchronized void addWeight(float weight) {
         this.weight += weight;
     }
 
-     boolean isOverWeight() {
+    boolean isOverWeight() {
         return weight > nuclearLoading;
     }
 
-     Elevator(String number, String state, int floor, float nuclearLoading, float weight) {
+    Elevator(String number, String state, int floor, float nuclearLoading, float weight) {
         this.number = number;
         this.state = state;
         this.floor = floor;
@@ -42,31 +42,29 @@ public abstract class Elevator implements Runnable {
         this.weight = weight;
     }
 
-     String getNumber() {
+    String getNumber() {
         return number;
     }
 
 
-     String getState() {
+    String getState() {
         return state;
     }
 
-     void setState(String state) {
+    void setState(String state) {
         this.state = state;
     }
 
-     int getFloor() {
+    int getFloor() {
         return floor;
     }
 
-     void setFloor(int floor) {
+    void setFloor(int floor) {
         this.floor = floor;
     }
 
 
-
-
-     void setWeight(float weight) {
+    void setWeight(@SuppressWarnings("SameParameterValue") float weight) {
         this.weight = weight;
     }
 
