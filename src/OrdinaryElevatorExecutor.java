@@ -1,6 +1,3 @@
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author lilei
@@ -16,20 +13,21 @@ public class OrdinaryElevatorExecutor extends ExecutorBase<OrdinaryElevator> {
 
     }
 
+
+    public void moveToNext() throws InterruptedException {
+        while (!elevator.finishAll()){
+            for(int i=elevator.getFloor();i==elevator.getClosePoint();i=(elevator.isRise()?i+1:i-1)){
+                move(i,null);
+            }
+        }
+    }
+
+
+
     public synchronized void afterCarry() {
         super.afterCarry();
         elevator.setEvents(null);
     }
 
-    public Set<Integer> getPoints() {
-        Set<Integer> set = new HashSet<>();
-        if (elevator != null) {
-            List<Event> events =elevator.getEvents();
-            for (Event event : events) {
-                set.add(event.getFloor());
-                set.add(event.getDestination());
-            }
-        }
-        return set;
-    }
+
 }

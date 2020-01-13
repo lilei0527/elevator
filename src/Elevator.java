@@ -2,7 +2,7 @@
 /**
  * @author lilei
  **/
-public abstract class Elevator implements Runnable {
+public abstract class Elevator<T extends Executor> implements Runnable {
     //电梯编号
     private final String number;
     //电梯状态
@@ -15,9 +15,13 @@ public abstract class Elevator implements Runnable {
     private volatile float weight;
 
 
-    Executor executor;
+    T executor;
 
-    void setExecutor(Executor executor) {
+    T getExecutor() {
+        return executor;
+    }
+
+    void setExecutor(T executor) {
         this.executor = executor;
     }
 
@@ -81,14 +85,18 @@ public abstract class Elevator implements Runnable {
                 '}';
     }
 
+    boolean isRise(){
+        return state.equals(StateEnum.RISE.getType());
+    }
+
+    boolean isDrop(){
+        return state.equals(StateEnum.DROP.getType());
+    }
+
 //    boolean isSameDirection(Event event) {
 //        return (getState().equals(StateEnum.RISE.getType()) && event.getDirection().equals("up")) ||
 //                (getState().equals(StateEnum.DROP.getType()) && event.getDirection().equals("down"));
 //    }
 
-    //可以一同上升或下降的电梯
-    boolean canMerge(Event event) {
-        return (getState().equals(StateEnum.RISE.getType()) && event.getDirection().equals("up")) && (getFloor() <= event.getFloor())
-                || (getState().equals(StateEnum.DROP.getType()) && event.getDirection().equals("down")) && (getFloor() >= event.getFloor());
-    }
+
 }
