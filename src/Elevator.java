@@ -2,6 +2,7 @@
 /**
  * @author lilei
  **/
+@SuppressWarnings("unused")
 public abstract class Elevator<T extends Executor> implements Runnable {
     //电梯编号
     private final String number;
@@ -15,7 +16,7 @@ public abstract class Elevator<T extends Executor> implements Runnable {
     private volatile float weight;
 
 
-    T executor;
+    private T executor;
 
     T getExecutor() {
         return executor;
@@ -27,7 +28,16 @@ public abstract class Elevator<T extends Executor> implements Runnable {
 
     //模拟电梯接受到指令，开始运行
     @Override
-    public abstract void run();
+    public void run(){
+        try {
+            if (executor != null) {
+                executor.execute();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("异常");
+            e.printStackTrace();
+        }
+    }
 
 
     synchronized void addWeight(float weight) {
@@ -97,6 +107,7 @@ public abstract class Elevator<T extends Executor> implements Runnable {
 //        return (getState().equals(StateEnum.RISE.getType()) && event.getDirection().equals("up")) ||
 //                (getState().equals(StateEnum.DROP.getType()) && event.getDirection().equals("down"));
 //    }
+
 
 
 }

@@ -5,6 +5,7 @@
 public abstract class ExecutorBase<T extends Elevator> implements Executor {
     T elevator;
 
+    @SuppressWarnings("unchecked")
     ExecutorBase(T elevator) {
         this.elevator = elevator;
         elevator.setExecutor(this);

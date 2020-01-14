@@ -18,14 +18,7 @@ public class ThroughElevator extends Elevator {
             if (getEvent() != null) {
                 //接受到指令
                 System.out.println("电梯" + this.getNumber() + "接受到指令");
-                try {
-                    if (executor != null) {
-                        executor.execute();
-                    }
-                } catch (InterruptedException e) {
-                    System.out.println("异常");
-                    e.printStackTrace();
-                }
+                super.run();
             }
         }
     }

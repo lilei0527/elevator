@@ -12,8 +12,15 @@ public class OrdinaryElevator extends Elevator<OrdinaryElevatorExecutor> {
 
     @Override
     public void run() {
-
+        while (!getState().equals(StateEnum.FAULT.getType())) {
+            if (getEvents() != null) {
+                //接受到指令
+                System.out.println("电梯" + this.getNumber() + "接受到指令");
+                super.run();
+            }
+        }
     }
+
 
     public OrdinaryElevator(String number, String state, int floor, float nuclearLoading, float weight) {
         super(number, state, floor, nuclearLoading, weight);
@@ -75,5 +82,14 @@ public class OrdinaryElevator extends Elevator<OrdinaryElevatorExecutor> {
 
     void setEvents(@SuppressWarnings("SameParameterValue") List<Event> events) {
         this.events = events;
+    }
+
+    boolean isContrary() {
+        return getState().equals(StateEnum.RISE.getType()) && events.get(0).getDirection().equals("down")
+                || getState().equals(StateEnum.DROP.getType()) && events.get(0).getDirection().equals("up");
+    }
+
+    String getContraryState() {
+        return getState().equals(StateEnum.RISE.getType()) ? StateEnum.DROP.getType() : StateEnum.RISE.getType();
     }
 }
