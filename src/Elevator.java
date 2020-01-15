@@ -1,9 +1,9 @@
-import java.util.List;
 
 /**
  * @author lilei
  **/
-public abstract class Elevator implements Runnable {
+@SuppressWarnings("unused")
+public abstract class Elevator<T extends Executor> implements Runnable {
     //电梯编号
     private final String number;
     //电梯状态
@@ -16,26 +16,39 @@ public abstract class Elevator implements Runnable {
     private volatile float weight;
 
 
-    public Executor executor;
+    private T executor;
 
-    public void setExecutor(Executor executor) {
+    T getExecutor() {
+        return executor;
+    }
+
+    void setExecutor(T executor) {
         this.executor = executor;
     }
 
     //模拟电梯接受到指令，开始运行
     @Override
-    public abstract void run();
+    public void run(){
+        try {
+            if (executor != null) {
+                executor.execute();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("异常");
+            e.printStackTrace();
+        }
+    }
 
 
-    public synchronized void addWeight(float weight) {
+    synchronized void addWeight(float weight) {
         this.weight += weight;
     }
 
-    public boolean isOverWeight() {
+    boolean isOverWeight() {
         return weight > nuclearLoading;
     }
 
-    public Elevator(String number, String state, int floor, float nuclearLoading, float weight) {
+    Elevator(String number, String state, int floor, float nuclearLoading, float weight) {
         this.number = number;
         this.state = state;
         this.floor = floor;
@@ -43,37 +56,29 @@ public abstract class Elevator implements Runnable {
         this.weight = weight;
     }
 
-    public String getNumber() {
+    String getNumber() {
         return number;
     }
 
 
-    public String getState() {
+    String getState() {
         return state;
     }
 
-    public void setState(String state) {
+    void setState(String state) {
         this.state = state;
     }
 
-    public int getFloor() {
+    int getFloor() {
         return floor;
     }
 
-    public void setFloor(int floor) {
+    void setFloor(int floor) {
         this.floor = floor;
     }
 
-    public float getNuclearLoading() {
-        return nuclearLoading;
-    }
 
-
-    public float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(float weight) {
+    void setWeight(@SuppressWarnings("SameParameterValue") float weight) {
         this.weight = weight;
     }
 
@@ -90,14 +95,19 @@ public abstract class Elevator implements Runnable {
                 '}';
     }
 
-    boolean isSameDirection(Event event) {
-        return (getState().equals(StateEnum.RISE.getType()) && event.getDirection().equals("up")) ||
-                (getState().equals(StateEnum.DROP.getType()) && event.getDirection().equals("down"));
+    boolean isRise(){
+        return state.equals(StateEnum.RISE.getType());
     }
 
-    //可以一同上升或下降的电梯
-    boolean canMerge(Event event) {
-        return (getState().equals(StateEnum.RISE.getType()) && event.getDirection().equals("up")) && (getFloor() <= event.getFloor())
-                || (getState().equals(StateEnum.DROP.getType()) && event.getDirection().equals("down")) && (getFloor() >= event.getFloor());
+    boolean isDrop(){
+        return state.equals(StateEnum.DROP.getType());
     }
+
+//    boolean isSameDirection(Event event) {
+//        return (getState().equals(StateEnum.RISE.getType()) && event.getDirection().equals("up")) ||
+//                (getState().equals(StateEnum.DROP.getType()) && event.getDirection().equals("down"));
+//    }
+
+
+
 }
