@@ -1,7 +1,6 @@
 /**
  * @author lilei
  **/
-@SuppressWarnings("unused")
 public class ThroughElevatorExecutor extends ExecutorBase<ThroughElevator> {
      ThroughElevatorExecutor(ThroughElevator elevator) {
         super(elevator);
