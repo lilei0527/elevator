@@ -4,6 +4,7 @@ import java.util.List;
 /**
  * @author lilei
  **/
+@SuppressWarnings("unused")
 public class Context {
     private List<Elevator> elevators = new ArrayList<>();
 
@@ -57,6 +58,12 @@ public class Context {
         for (Elevator elevator : elevators) {
             System.out.println(elevator.toString());
         }
+    }
+
+    private void console(int second) throws InterruptedException {
+        System.out.println("电梯状态：");
+        detail();
+        Thread.sleep(second);
     }
 
     @SuppressWarnings("SameParameterValue")
