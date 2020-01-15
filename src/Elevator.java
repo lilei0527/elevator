@@ -108,6 +108,7 @@ public abstract class Elevator<T extends Executor> implements Runnable {
 //                (getState().equals(StateEnum.DROP.getType()) && event.getDirection().equals("down"));
 //    }
 
-
-
+    void printState(){
+        System.out.println("电梯目前状态:"+state);
+    }
 }

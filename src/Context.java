@@ -59,13 +59,16 @@ public class Context {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void press(int floor, String direction, String number, int destination) {
         Event event = new Event(floor, direction, number, destination);
         analyzer.analyzer(event);
     }
 
     public static void main(String[] args) {
-        Context context = new Context();
+
+        //-------------------演示直达电梯
+       /* Context context = new Context();
         ThroughElevator elevator = new ThroughElevator("A1", StateEnum.FREE.getType(), 0, 999, 0);
         ThroughElevator elevator1 = new ThroughElevator("A2", StateEnum.FREE.getType(), 0, 999, 0);
         ThroughElevator elevator2 = new ThroughElevator("A3", StateEnum.FREE.getType(), 0, 999, 0);
@@ -79,7 +82,6 @@ public class Context {
 
         new Analyzer(context);
         new ThroughElevatorSelector(context);
-        new OrdinaryElevatorSelector(context);
 
         context.start();
 
@@ -91,8 +93,40 @@ public class Context {
 
         context.press(6, "up", "A1", 10);
 
-        context.press(9, "up", "A1", 2);
+        context.press(9, "up", "A1", 2);*/
 
+        //------------------------演示常用电梯
+
+        Context context = new Context();
+        OrdinaryElevator elevator = new OrdinaryElevator("A1", StateEnum.FREE.getType(), 1, 999, 0);
+//        OrdinaryElevator elevator1 = new OrdinaryElevator("A2", StateEnum.FREE.getType(), 1, 999, 0);
+//        OrdinaryElevator elevator2 = new OrdinaryElevator("A3", StateEnum.FREE.getType(), 1, 999, 0);
+        context.addElevator(elevator);
+//        context.addElevator(elevator1);
+//        context.addElevator(elevator2);
+
+        new OrdinaryElevatorExecutor(elevator);
+//        new OrdinaryElevatorExecutor(elevator1);
+//        new OrdinaryElevatorExecutor(elevator2);
+
+        new Analyzer(context);
+        new OrdinaryElevatorSelector(context);
+
+        context.start();
+
+        context.press(9, "down", "A1", 1);
+
+        context.press(2, "up", "A1", 10);
+
+        context.press(5, "down", "A1", 1);
+
+
+//
+//        context.press(2, "up", "A1", 10);
+//
+//        context.press(6, "up", "A1", 10);
+//
+//        context.press(9, "up", "A1", 2);
 
     }
 }

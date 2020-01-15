@@ -12,6 +12,7 @@ public class OrdinaryElevatorExecutor extends ExecutorBase<OrdinaryElevator> {
     @Override
     public void execute() throws InterruptedException {
         beforeCarry(elevator.getEvents().get(0).getFloor());
+        elevator.printState();
         moveToNext();
         if (elevator.isContrary()) {
             List<Event> events = new ArrayList<>();
@@ -26,19 +27,23 @@ public class OrdinaryElevatorExecutor extends ExecutorBase<OrdinaryElevator> {
 
     private void moveToNext() throws InterruptedException {
         while (!elevator.finishAll()) {
-            for (int i = elevator.getFloor(); i == elevator.getClosePoint(); i = (elevator.isRise() ? i + 1 : i - 1)) {
+            int point = elevator.getClosePoint();
+            System.out.println("最近停靠点："+point);
+            for (int i = elevator.getFloor(); point== elevator.getClosePoint(); i = (elevator.isRise() ? i + 1 : i - 1)) {
                 move(i, null);
+                Thread.sleep(2000);
             }
-            System.out.println("电梯停靠" + elevator.getFloor() + "楼");
+            stop();
         }
-
     }
 
+    private void stop() throws InterruptedException {
+        System.out.println("电梯停靠" + elevator.getFloor() + "楼");
+        Thread.sleep(3000); //3s
+    }
 
     public synchronized void afterCarry() {
         super.afterCarry();
         elevator.setEvents(null);
     }
-
-
 }

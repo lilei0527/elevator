@@ -8,7 +8,7 @@ import java.util.TreeSet;
  **/
 public class OrdinaryElevator extends Elevator<OrdinaryElevatorExecutor> {
     //接收到的事件
-    private volatile List<Event> events = new ArrayList<>();
+    private volatile List<Event> events ;
 
     @Override
     public void run() {
@@ -35,6 +35,7 @@ public class OrdinaryElevator extends Elevator<OrdinaryElevatorExecutor> {
     //判断电梯是否完成所有的指令
     boolean finishAll() {
         List<Integer> points = getPoints();
+
         return getState().equals(StateEnum.RISE.getType()) && points.get(points.size() - 1) == getFloor() ||
                 getState().equals(StateEnum.DROP.getType()) && points.get(0) == getFloor();
     }
@@ -52,18 +53,19 @@ public class OrdinaryElevator extends Elevator<OrdinaryElevatorExecutor> {
     //取得电梯行进方向最近的一个停靠点
     int getClosePoint() {
         List<Integer> points = getPoints();
+        System.out.println("电梯所有停靠点:"+points.toString());
         if (isRise()) {
             for (Integer point : points) {
-                if (point >= getFloor()) {
+                if (point > getFloor()) {
                     return point;
                 }
             }
         }
 
         if (isDrop()) {
-            for (Integer point : points) {
-                if (point <= getFloor()) {
-                    return point;
+            for(int i=points.size()-1;i>=0;i--){
+                if(points.get(i)<getFloor()){
+                    return points.get(i);
                 }
             }
         }
@@ -85,8 +87,8 @@ public class OrdinaryElevator extends Elevator<OrdinaryElevatorExecutor> {
     }
 
     boolean isContrary() {
-        return getState().equals(StateEnum.RISE.getType()) && events.get(0).getDirection().equals("down")
-                || getState().equals(StateEnum.DROP.getType()) && events.get(0).getDirection().equals("up");
+        return (getState().equals(StateEnum.RISE.getType()) && events.get(0).getDirection().equals("down"))
+                || (getState().equals(StateEnum.DROP.getType()) && events.get(0).getDirection().equals("up"));
     }
 
     String getContraryState() {

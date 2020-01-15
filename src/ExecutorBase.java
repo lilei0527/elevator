@@ -62,7 +62,7 @@ public abstract class ExecutorBase<T extends Elevator> implements Executor {
     }
 
     //电梯结束载客  一定要同步，不然setState和setEvent分开会出现问题
-    public synchronized void afterCarry() {
+    public  void afterCarry() {
         elevator.setState(StateEnum.FREE.getType());
         elevator.setWeight(0);
     }
