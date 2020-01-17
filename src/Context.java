@@ -71,6 +71,14 @@ public class Context {
         Event event = new Event(floor, direction, number, destination);
         analyzer.analyzer(event);
     }
+    @SuppressWarnings("SameParameterValue")
+    private void sleep(long millisecond){
+        try {
+            Thread.sleep(millisecond);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -123,9 +131,18 @@ public class Context {
 
         context.press(9, "down", "A1", 1);
 
+        context.sleep(4000);
+
+
         context.press(2, "up", "A1", 10);
 
+        context.sleep(6000);
+
+
         context.press(5, "down", "A1", 1);
+
+
+        context.sleep(3000);
 
         context.press(4, "up", "A1", 11);
 
