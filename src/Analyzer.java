@@ -59,16 +59,18 @@ class Analyzer {
     }
 
     void analyzer(Event event) {
-        if (isThroughElevator(event.getNumber())) {
-            doSelect(ThroughElevatorSelector.class, event);
-        }
-
-        if (isOrdinaryElevator(event.getNumber())) {
-            doSelect(OrdinaryElevatorSelector.class, event);
-        }
+        Thread thread = new Thread(() -> {
+            if (isThroughElevator(event.getNumber())) {
+                doSelect(ThroughElevatorSelector.class, event);
+            }
+            if (isOrdinaryElevator(event.getNumber())) {
+                doSelect(OrdinaryElevatorSelector.class, event);
+            }
+        });
+        thread.start();
     }
 
-    private <T extends Selector> void doSelect(Class<T> clazz, Event event) {
+    private   <T extends Selector> void doSelect(Class<T> clazz, Event event) {
         Elevator selectedElevator = null;
         while (selectedElevator == null) {
             Selector selector = getSelector(clazz);

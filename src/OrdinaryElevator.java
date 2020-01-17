@@ -28,6 +28,12 @@ public class OrdinaryElevator extends Elevator<OrdinaryElevatorExecutor> {
 
     //可以一同上升或下降的电梯
     boolean canMerge(Event event) {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("是否能merge:"+"elevator:"+this.toString()+"event:"+event.toString());
         return (getState().equals(StateEnum.RISE.getType()) && event.getDirection().equals("up")) && (getFloor() <= event.getFloor())
                 || (getState().equals(StateEnum.DROP.getType()) && event.getDirection().equals("down")) && (getFloor() >= event.getFloor());
     }
@@ -35,7 +41,6 @@ public class OrdinaryElevator extends Elevator<OrdinaryElevatorExecutor> {
     //判断电梯是否完成所有的指令
     boolean finishAll() {
         List<Integer> points = getPoints();
-
         return getState().equals(StateEnum.RISE.getType()) && points.get(points.size() - 1) == getFloor() ||
                 getState().equals(StateEnum.DROP.getType()) && points.get(0) == getFloor();
     }

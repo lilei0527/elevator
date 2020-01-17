@@ -12,7 +12,7 @@ public class OrdinaryElevatorSelector extends SelectorBase<OrdinaryElevator> {
     }
 
     @Override
-    public OrdinaryElevator choice(Event event) {
+    public synchronized OrdinaryElevator choice(Event event) {
         OrdinaryElevator elevator = choiceClose(event);
         if (elevator != null) {
             return elevator;

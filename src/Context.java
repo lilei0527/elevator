@@ -127,6 +127,8 @@ public class Context {
 
         context.press(5, "down", "A1", 1);
 
+        context.press(4, "up", "A1", 11);
+
 
 //
 //        context.press(2, "up", "A1", 10);

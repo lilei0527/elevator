@@ -31,7 +31,6 @@ public class OrdinaryElevatorExecutor extends ExecutorBase<OrdinaryElevator> {
             System.out.println("最近停靠点："+point);
             for (int i = elevator.getFloor(); point== elevator.getClosePoint(); i = (elevator.isRise() ? i + 1 : i - 1)) {
                 move(i, null);
-                Thread.sleep(2000);
             }
             stop();
         }
