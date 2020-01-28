@@ -22,7 +22,7 @@ public class OrdinaryElevator extends Elevator<OrdinaryElevatorExecutor> {
     }
 
 
-    public OrdinaryElevator(String number, String state, int floor, float nuclearLoading, float weight) {
+    OrdinaryElevator(String number, String state, int floor, float nuclearLoading, float weight) {
         super(number, state, floor, nuclearLoading, weight);
     }
 

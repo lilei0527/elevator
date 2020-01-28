@@ -5,7 +5,7 @@ import java.util.List;
  * @author lilei
  **/
 public class OrdinaryElevatorExecutor extends ExecutorBase<OrdinaryElevator> {
-    public OrdinaryElevatorExecutor(OrdinaryElevator elevator) {
+    OrdinaryElevatorExecutor(OrdinaryElevator elevator) {
         super(elevator);
     }
 
